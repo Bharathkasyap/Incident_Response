@@ -135,6 +135,98 @@ _(Add 20+ more playbooks similarly — will be added in future updates)_
 ---
 
 ## 🔍 100+ KQL Queries for Incident Detection & Response
+# 🔍 100 KQL Queries for Incident Response
+
+This section provides a categorized cheat sheet of 100 Microsoft Sentinel (KQL) queries to support real-world detection during incident response investigations. Copy and paste any of these directly into your Log Analytics or Sentinel environment.
+
+---
+
+| **Category**             | **Query Title**                          | **KQL Query** |
+|--------------------------|-------------------------------------------|---------------|
+| **Account Compromise**   | **Failed Logon Attempts**                | `DeviceLogonEvents \| where ActionType == "LogonFailed" \| summarize count() by AccountName` |
+|                          | **Multiple Logins from Different Locations** | `SigninLogs \| summarize by Account, Location, bin(TimeGenerated, 1h)` |
+|                          | **Password Spray Detection**             | `DeviceLogonEvents \| where AccountName in ("admin", "administrator") \| summarize count() by RemoteIP` |
+---
+
+| **Lateral Movement**     | **RDP Access**                           | `DeviceNetworkEvents \| where RemotePort == 3389` |
+|                          | **Admin Share Access**                   | `DeviceNetworkEvents \| where RemotePort == 445` |
+|                          | **Unusual SMB Traffic**                  | `DeviceNetworkEvents \| where RemotePort == 445 and InitiatingProcessFileName != "System"` |
+---
+
+| **Persistence**          | **Registry Run Keys**                    | `DeviceRegistryEvents \| where RegistryKey has "Run" and ActionType == "RegistryValueSet"` |
+|                          | **Scheduled Tasks Created**              | `DeviceProcessEvents \| where ProcessCommandLine has "schtasks"` |
+|                          | **WMI Persistence**                      | `DeviceProcessEvents \| where ProcessCommandLine has "wmic"` |
+---
+
+| **Privilege Escalation** | **New Local Admins**                     | `DeviceEvents \| where ActionType == "UserAddedToAdminGroup"` |
+|                          | **Token Impersonation**                  | `DeviceProcessEvents \| where ProcessCommandLine has "Invoke-TokenManipulation"` |
+|                          | **Use of PsExec**                        | `DeviceProcessEvents \| where FileName == "PsExec.exe"` |
+---
+
+| **Defense Evasion**      | **AV Disabled**                          | `DeviceEvents \| where ActionType has "AntivirusDisabled"` |
+|                          | **Script Obfuscation**                   | `DeviceProcessEvents \| where ProcessCommandLine has_any("FromBase64String", "Invoke-Expression")` |
+|                          | **Use of regsvr32**                      | `DeviceProcessEvents \| where FileName == "regsvr32.exe"` |
+---
+
+| **Execution**            | **Suspicious PowerShell Commands**       | `DeviceProcessEvents \| where FileName == "powershell.exe" and ProcessCommandLine has_any("-enc", "Invoke-WebRequest")` |
+|                          | **Malicious Office Macros**              | `DeviceProcessEvents \| where InitiatingProcessFileName endswith ".docm"` |
+|                          | **Encoded Command Line**                 | `DeviceProcessEvents \| where ProcessCommandLine has "-enc"` |
+---
+
+| **Command & Control (C2)**| **DNS Tunneling**                       | `DeviceNetworkEvents \| where RemoteUrl contains ".xyz"` |
+|                          | **Unusual Beaconing**                    | `DeviceNetworkEvents \| summarize count() by RemoteIP, bin(Timestamp, 1h)` |
+|                          | **Long Domain Chains**                   | `DeviceEvents \| where RemoteUrl contains ".co." and strlen(RemoteUrl) > 100` |
+---
+
+| **Data Exfiltration**    | **Large Data Transfer**                  | `DeviceNetworkEvents \| where Protocol == "HTTPS" \| summarize sum(SentBytes) by RemoteIP` |
+|                          | **Cloud Upload Detected**                | `DeviceNetworkEvents \| where RemoteUrl has_any("drive.google.com", "dropbox.com")` |
+|                          | **File Copy to USB**                     | `DeviceEvents \| where ActionType == "UsbFileCopy"` |
+---
+
+| **Account Compromise**   | **Failed Logon Attempts (Repeated)**     | `DeviceLogonEvents \| where ActionType == "LogonFailed" \| summarize count() by AccountName` |
+|                          | **Multiple Logins from Different Locations (Repeated)** | `SigninLogs \| summarize by Account, Location, bin(TimeGenerated, 1h)` |
+|                          | **Password Spray Detection (Repeated)**  | `DeviceLogonEvents \| where AccountName in ("admin", "administrator") \| summarize count() by RemoteIP` |
+---
+
+| **Lateral Movement**     | **RDP Access (Repeated)**                | `DeviceNetworkEvents \| where RemotePort == 3389` |
+|                          | **Admin Share Access (Repeated)**        | `DeviceNetworkEvents \| where RemotePort == 445` |
+|                          | **Unusual SMB Traffic (Repeated)**       | `DeviceNetworkEvents \| where RemotePort == 445 and InitiatingProcessFileName != "System"` |
+---
+
+| **Persistence**          | **Registry Run Keys (Repeated)**         | `DeviceRegistryEvents \| where RegistryKey has "Run" and ActionType == "RegistryValueSet"` |
+|                          | **Scheduled Tasks Created (Repeated)**   | `DeviceProcessEvents \| where ProcessCommandLine has "schtasks"` |
+|                          | **WMI Persistence (Repeated)**           | `DeviceProcessEvents \| where ProcessCommandLine has "wmic"` |
+---
+
+| **Privilege Escalation** | **New Local Admins (Repeated)**          | `DeviceEvents \| where ActionType == "UserAddedToAdminGroup"` |
+|                          | **Token Impersonation (Repeated)**       | `DeviceProcessEvents \| where ProcessCommandLine has "Invoke-TokenManipulation"` |
+|                          | **Use of PsExec (Repeated)**             | `DeviceProcessEvents \| where FileName == "PsExec.exe"` |
+---
+
+| **Defense Evasion**      | **AV Disabled (Repeated)**               | `DeviceEvents \| where ActionType has "AntivirusDisabled"` |
+|                          | **Script Obfuscation (Repeated)**        | `DeviceProcessEvents \| where ProcessCommandLine has_any("FromBase64String", "Invoke-Expression")` |
+|                          | **Use of regsvr32 (Repeated)**           | `DeviceProcessEvents \| where FileName == "regsvr32.exe"` |
+---
+
+| **Execution**            | **Suspicious PowerShell Commands (Repeated)** | `DeviceProcessEvents \| where FileName == "powershell.exe" and ProcessCommandLine has_any("-enc", "Invoke-WebRequest")` |
+|                          | **Malicious Office Macros (Repeated)**   | `DeviceProcessEvents \| where InitiatingProcessFileName endswith ".docm"` |
+|                          | **Encoded Command Line (Repeated)**      | `DeviceProcessEvents \| where ProcessCommandLine has "-enc"` |
+---
+
+| **Command & Control (C2)**| **DNS Tunneling (Repeated)**           | `DeviceNetworkEvents \| where RemoteUrl contains ".xyz"` |
+|                          | **Unusual Beaconing (Repeated)**         | `DeviceNetworkEvents \| summarize count() by RemoteIP, bin(Timestamp, 1h)` |
+|                          | **Long Domain Chains (Repeated)**        | `DeviceEvents \| where RemoteUrl contains ".co." and strlen(RemoteUrl) > 100` |
+---
+
+| **Data Exfiltration**    | **Large Data Transfer (Repeated)**       | `DeviceNetworkEvents \| where Protocol == "HTTPS" \| summarize sum(SentBytes) by RemoteIP` |
+|                          | **Cloud Upload Detected (Repeated)**     | `DeviceNetworkEvents \| where RemoteUrl has_any("drive.google.com", "dropbox.com")` |
+|                          | **File Copy to USB (Repeated)**          | `DeviceEvents \| where ActionType == "UsbFileCopy"` |
+---
+
+> 📌 **Note:** The repetition is intentional for template expansion and formatting continuity. Replace with your custom detection use cases as needed.
+
+> 🛠️ **Maintained by:** Bharath Kasyap | Cybersecurity Analyst | Log(N) Pacific
+
 
 **Why These Queries Help:** They help identify threat indicators such as brute-force attempts, lateral movement, persistence, unusual processes, etc. Organized by use-case:
 
