@@ -362,6 +362,39 @@ Each collapsible section below shows immediate actions, who is involved, escalat
 
 ---
 
+## 👤 Author
+
+Maintained and compiled by **Bharath Devulapalli**  
+Security Analyst | Threat Hunter | Incident Responder  
+GitHub: [Bharathkasyap](https://github.com/Bharathkasyap)  
+LinkedIn: [venkatadevu](https://www.linkedin.com/in/venkatadevu/)
+
+---
+
+## 🪪 License
+
+MIT License
+
+Copyright (c) 2025 Bharath Devulapalli
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this documentation and associated materials, to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the content, subject to the following conditions:
+
+- Attribution must be given to the original author.
+- Reuse must preserve the integrity and context of the information.
+- The license does not extend to copied or derived content for malicious or unethical use.
+
+---
+
+## 🚀 Contribute
+
+If you'd like to contribute detection rules, playbooks, or enrich the IR lifecycle process, feel free to fork and raise a PR.
+
+---
+
+## 📢 Disclaimer
+
+This content is for educational and professional use only. Use it responsibly in your organization or training environment.
+
 > 📌 **Ongoing Contribution:** Pull requests welcome for adding more KQLs, MITRE mappings, and role-specific guides.
 
-> 🛠️ Maintained by: Bharath Kasyap | Cybersecurity Analyst
+> 🛠️ Maintained by: Bharath Devulapalli | Cybersecurity Analyst
