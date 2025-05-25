@@ -330,7 +330,7 @@ Each collapsible section below shows immediate actions, who is involved, escalat
 | Unusual Parent Process    | Suspicious process tree                                 | `DeviceProcessEvents | project ParentProcessName, FileName` |
 | File Drops to Temp Dir    | Malware staging                                         | `DeviceFileEvents | where FolderPath contains "Temp"` |
 
-> _Full list with explanations and categories is being added in the extended version._
+**[More Detailed IR KQL Queries included here](https://github.com/Bharathkasyap/Incident_Response_For_Everyone/blob/main/src/100_KQL_Queries_for_Incident_Response.csv)**  
 
 ---
 
