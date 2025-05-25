@@ -228,6 +228,7 @@ This section provides a categorized cheat sheet of 100 Microsoft Sentinel (KQL) 
 > 🛠️ **Maintained by:** Bharath Kasyap | Cybersecurity Analyst | Log(N) Pacific
 
 
+
 **Why These Queries Help:** They help identify threat indicators such as brute-force attempts, lateral movement, persistence, unusual processes, etc. Organized by use-case:
 
 | Use Case                  | Query Purpose                                            | KQL Snippet |
