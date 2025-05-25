@@ -97,6 +97,185 @@ Each collapsible section below shows immediate actions, who is involved, escalat
 <details>
 <summary><strong>💥 Brute Force Attack</strong></summary>
 
+**Who is Involved**: SOC Analyst, IR Lead, AD Admin  
+**Immediate Actions**:
+- Search failed login attempts (source IP)
+- Lock account or enforce MFA
+- Block IP if attack persists
+
+**KQL Query**:
+```kusto
+DeviceLogonEvents
+| where ActionType == "LogonFailed"
+| summarize Failures = count() by AccountName, RemoteIP
+| order by Failures desc
+```
+**MITRE ATT&CK**: T1110 – Brute Force
+
+</details>
+
+<details>
+<summary><strong>🎣 Phishing Email</strong></summary>
+
+**Who is Involved**: Email Admin, SOC, IR Lead  
+**Immediate Actions**:
+- Isolate affected user inbox
+- Extract URLs/attachments and sandbox them
+- Block sender domain
+
+**KQL Query**:
+```kusto
+EmailEvents
+| where Subject has_any ("Reset Password", "Account Locked")
+```
+**MITRE ATT&CK**: T1566 – Phishing
+
+</details>
+
+<details>
+<summary><strong>🪓 Ransomware Attack</strong></summary>
+
+**Who is Involved**: SOC Team, IT Admin, IR Lead, Legal  
+**Immediate Actions**:
+- Disconnect infected hosts
+- Notify legal and compliance
+- Begin containment and restore from clean backup
+
+**KQL Query**:
+```kusto
+DeviceFileEvents
+| where FileName endswith ".locky" or FileName endswith ".crypt"
+```
+**MITRE ATT&CK**: T1486 – Data Encrypted for Impact
+
+</details>
+
+<details>
+<summary><strong>🧬 Credential Dumping</strong></summary>
+
+**Who is Involved**: SOC, Threat Hunter, IR Lead  
+**Immediate Actions**:
+- Look for suspicious LSASS memory access
+- Analyze use of mimikatz-like tools
+- Monitor service account access
+
+**KQL Query**:
+```kusto
+DeviceProcessEvents
+| where ProcessCommandLine has "sekurlsa"
+```
+**MITRE ATT&CK**: T1003.001 – LSASS Memory
+
+</details>
+
+<details>
+<summary><strong>🛠️ Living Off the Land Binaries (LOLBins)</strong></summary>
+
+**Who is Involved**: Threat Hunter, SOC Tier 2  
+**Immediate Actions**:
+- Detect misuse of native Windows tools (e.g., certutil, mshta)
+- Monitor behavioral anomalies
+
+**KQL Query**:
+```kusto
+DeviceProcessEvents
+| where FileName in~ ("certutil.exe", "mshta.exe", "bitsadmin.exe")
+```
+**MITRE ATT&CK**: T1218 – Signed Binary Proxy Execution
+
+</details>
+
+<details>
+<summary><strong>📦 Suspicious PowerShell Activity</strong></summary>
+
+**Who is Involved**: SOC Tier 2, IR Lead  
+**Immediate Actions**:
+- Trace back PowerShell execution
+- Correlate with user activity
+
+**KQL Query**:
+```kusto
+DeviceProcessEvents
+| where FileName == "powershell.exe"
+| where ProcessCommandLine has_any ("-enc", "iex", "Invoke-WebRequest")
+```
+**MITRE ATT&CK**: T1059.001 – PowerShell
+
+</details>
+
+<details>
+<summary><strong>🚪 Suspicious RDP Connections</strong></summary>
+
+**Who is Involved**: SOC, Network Admin  
+**Immediate Actions**:
+- Identify unusual geolocation/IPs
+- Check time of access and duration
+
+**KQL Query**:
+```kusto
+DeviceNetworkEvents
+| where RemotePort == 3389
+```
+**MITRE ATT&CK**: T1021.001 – Remote Desktop Protocol
+
+</details>
+
+<details>
+<summary><strong>🔁 Pass-the-Hash Attack</strong></summary>
+
+**Who is Involved**: Threat Hunter, IR Lead  
+**Immediate Actions**:
+- Monitor for NTLM authentication without Kerberos
+- Alert on known hash reuse
+
+**KQL Query**:
+```kusto
+IdentityLogonEvents
+| where LogonProtocol == "NTLM"
+```
+**MITRE ATT&CK**: T1550.002 – Pass the Hash
+
+</details>
+
+<details>
+<summary><strong>🔒 Fileless Malware Execution</strong></summary>
+
+**Who is Involved**: SOC, Forensic Analyst  
+**Immediate Actions**:
+- Monitor memory execution (e.g., rundll32)
+- Check WMI or Registry-based execution
+
+**KQL Query**:
+```kusto
+DeviceImageLoadEvents
+| where FileName has_any ("rundll32.exe", "regsvr32.exe")
+```
+**MITRE ATT&CK**: T1055 – Process Injection
+
+</details>
+
+<details>
+<summary><strong>🕵️‍♂️ Exfiltration via Cloud Storage</strong></summary>
+
+**Who is Involved**: SOC, DLP Engineer  
+**Immediate Actions**:
+- Monitor upload to Dropbox, Google Drive
+- Block external sync tools
+
+**KQL Query**:
+```kusto
+DeviceNetworkEvents
+| where RemoteUrl contains "dropbox.com" or RemoteUrl contains "drive.google.com"
+```
+**MITRE ATT&CK**: T1567.002 – Exfiltration to Cloud Storage
+
+</details>
+
+Each collapsible section below shows immediate actions, who is involved, escalation triggers, and MITRE techniques.
+
+<details>
+<summary><strong>💥 Brute Force Attack</strong></summary>
+
 - **Who is Involved**: SOC Analyst, IR Lead, AD Admin
 - **Immediate Actions**:
   - Search failed login attempts (source IP)
@@ -135,99 +314,6 @@ _(Add 20+ more playbooks similarly — will be added in future updates)_
 ---
 
 ## 🔍 100+ KQL Queries for Incident Detection & Response
-# 🔍 100 KQL Queries for Incident Response
-
-This section provides a categorized cheat sheet of 100 Microsoft Sentinel (KQL) queries to support real-world detection during incident response investigations. Copy and paste any of these directly into your Log Analytics or Sentinel environment.
-
----
-
-| **Category**             | **Query Title**                          | **KQL Query** |
-|--------------------------|-------------------------------------------|---------------|
-| **Account Compromise**   | **Failed Logon Attempts**                | `DeviceLogonEvents \| where ActionType == "LogonFailed" \| summarize count() by AccountName` |
-|                          | **Multiple Logins from Different Locations** | `SigninLogs \| summarize by Account, Location, bin(TimeGenerated, 1h)` |
-|                          | **Password Spray Detection**             | `DeviceLogonEvents \| where AccountName in ("admin", "administrator") \| summarize count() by RemoteIP` |
----
-
-| **Lateral Movement**     | **RDP Access**                           | `DeviceNetworkEvents \| where RemotePort == 3389` |
-|                          | **Admin Share Access**                   | `DeviceNetworkEvents \| where RemotePort == 445` |
-|                          | **Unusual SMB Traffic**                  | `DeviceNetworkEvents \| where RemotePort == 445 and InitiatingProcessFileName != "System"` |
----
-
-| **Persistence**          | **Registry Run Keys**                    | `DeviceRegistryEvents \| where RegistryKey has "Run" and ActionType == "RegistryValueSet"` |
-|                          | **Scheduled Tasks Created**              | `DeviceProcessEvents \| where ProcessCommandLine has "schtasks"` |
-|                          | **WMI Persistence**                      | `DeviceProcessEvents \| where ProcessCommandLine has "wmic"` |
----
-
-| **Privilege Escalation** | **New Local Admins**                     | `DeviceEvents \| where ActionType == "UserAddedToAdminGroup"` |
-|                          | **Token Impersonation**                  | `DeviceProcessEvents \| where ProcessCommandLine has "Invoke-TokenManipulation"` |
-|                          | **Use of PsExec**                        | `DeviceProcessEvents \| where FileName == "PsExec.exe"` |
----
-
-| **Defense Evasion**      | **AV Disabled**                          | `DeviceEvents \| where ActionType has "AntivirusDisabled"` |
-|                          | **Script Obfuscation**                   | `DeviceProcessEvents \| where ProcessCommandLine has_any("FromBase64String", "Invoke-Expression")` |
-|                          | **Use of regsvr32**                      | `DeviceProcessEvents \| where FileName == "regsvr32.exe"` |
----
-
-| **Execution**            | **Suspicious PowerShell Commands**       | `DeviceProcessEvents \| where FileName == "powershell.exe" and ProcessCommandLine has_any("-enc", "Invoke-WebRequest")` |
-|                          | **Malicious Office Macros**              | `DeviceProcessEvents \| where InitiatingProcessFileName endswith ".docm"` |
-|                          | **Encoded Command Line**                 | `DeviceProcessEvents \| where ProcessCommandLine has "-enc"` |
----
-
-| **Command & Control (C2)**| **DNS Tunneling**                       | `DeviceNetworkEvents \| where RemoteUrl contains ".xyz"` |
-|                          | **Unusual Beaconing**                    | `DeviceNetworkEvents \| summarize count() by RemoteIP, bin(Timestamp, 1h)` |
-|                          | **Long Domain Chains**                   | `DeviceEvents \| where RemoteUrl contains ".co." and strlen(RemoteUrl) > 100` |
----
-
-| **Data Exfiltration**    | **Large Data Transfer**                  | `DeviceNetworkEvents \| where Protocol == "HTTPS" \| summarize sum(SentBytes) by RemoteIP` |
-|                          | **Cloud Upload Detected**                | `DeviceNetworkEvents \| where RemoteUrl has_any("drive.google.com", "dropbox.com")` |
-|                          | **File Copy to USB**                     | `DeviceEvents \| where ActionType == "UsbFileCopy"` |
----
-
-| **Account Compromise**   | **Failed Logon Attempts (Repeated)**     | `DeviceLogonEvents \| where ActionType == "LogonFailed" \| summarize count() by AccountName` |
-|                          | **Multiple Logins from Different Locations (Repeated)** | `SigninLogs \| summarize by Account, Location, bin(TimeGenerated, 1h)` |
-|                          | **Password Spray Detection (Repeated)**  | `DeviceLogonEvents \| where AccountName in ("admin", "administrator") \| summarize count() by RemoteIP` |
----
-
-| **Lateral Movement**     | **RDP Access (Repeated)**                | `DeviceNetworkEvents \| where RemotePort == 3389` |
-|                          | **Admin Share Access (Repeated)**        | `DeviceNetworkEvents \| where RemotePort == 445` |
-|                          | **Unusual SMB Traffic (Repeated)**       | `DeviceNetworkEvents \| where RemotePort == 445 and InitiatingProcessFileName != "System"` |
----
-
-| **Persistence**          | **Registry Run Keys (Repeated)**         | `DeviceRegistryEvents \| where RegistryKey has "Run" and ActionType == "RegistryValueSet"` |
-|                          | **Scheduled Tasks Created (Repeated)**   | `DeviceProcessEvents \| where ProcessCommandLine has "schtasks"` |
-|                          | **WMI Persistence (Repeated)**           | `DeviceProcessEvents \| where ProcessCommandLine has "wmic"` |
----
-
-| **Privilege Escalation** | **New Local Admins (Repeated)**          | `DeviceEvents \| where ActionType == "UserAddedToAdminGroup"` |
-|                          | **Token Impersonation (Repeated)**       | `DeviceProcessEvents \| where ProcessCommandLine has "Invoke-TokenManipulation"` |
-|                          | **Use of PsExec (Repeated)**             | `DeviceProcessEvents \| where FileName == "PsExec.exe"` |
----
-
-| **Defense Evasion**      | **AV Disabled (Repeated)**               | `DeviceEvents \| where ActionType has "AntivirusDisabled"` |
-|                          | **Script Obfuscation (Repeated)**        | `DeviceProcessEvents \| where ProcessCommandLine has_any("FromBase64String", "Invoke-Expression")` |
-|                          | **Use of regsvr32 (Repeated)**           | `DeviceProcessEvents \| where FileName == "regsvr32.exe"` |
----
-
-| **Execution**            | **Suspicious PowerShell Commands (Repeated)** | `DeviceProcessEvents \| where FileName == "powershell.exe" and ProcessCommandLine has_any("-enc", "Invoke-WebRequest")` |
-|                          | **Malicious Office Macros (Repeated)**   | `DeviceProcessEvents \| where InitiatingProcessFileName endswith ".docm"` |
-|                          | **Encoded Command Line (Repeated)**      | `DeviceProcessEvents \| where ProcessCommandLine has "-enc"` |
----
-
-| **Command & Control (C2)**| **DNS Tunneling (Repeated)**           | `DeviceNetworkEvents \| where RemoteUrl contains ".xyz"` |
-|                          | **Unusual Beaconing (Repeated)**         | `DeviceNetworkEvents \| summarize count() by RemoteIP, bin(Timestamp, 1h)` |
-|                          | **Long Domain Chains (Repeated)**        | `DeviceEvents \| where RemoteUrl contains ".co." and strlen(RemoteUrl) > 100` |
----
-
-| **Data Exfiltration**    | **Large Data Transfer (Repeated)**       | `DeviceNetworkEvents \| where Protocol == "HTTPS" \| summarize sum(SentBytes) by RemoteIP` |
-|                          | **Cloud Upload Detected (Repeated)**     | `DeviceNetworkEvents \| where RemoteUrl has_any("drive.google.com", "dropbox.com")` |
-|                          | **File Copy to USB (Repeated)**          | `DeviceEvents \| where ActionType == "UsbFileCopy"` |
----
-
-> 📌 **Note:** The repetition is intentional for template expansion and formatting continuity. Replace with your custom detection use cases as needed.
-
-> 🛠️ **Maintained by:** Bharath Kasyap | Cybersecurity Analyst | Log(N) Pacific
-
-
 
 **Why These Queries Help:** They help identify threat indicators such as brute-force attempts, lateral movement, persistence, unusual processes, etc. Organized by use-case:
 
