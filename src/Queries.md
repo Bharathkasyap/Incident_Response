@@ -16,14 +16,6 @@ Click on each scenario to expand and view details such as:
 
 ---
 
-You're looking for an extensive collection of incident response playbooks, structured in the clear and concise format you've provided. Generating 500 detailed and unique scenarios is a significant undertaking, as each requires specific actions, involved parties, KQL queries, and MITRE ATT\&CK mappings.
-
-To ensure the quality and relevance of each playbook, I'll generate them in batches. This allows for a wider variety of attack scenarios and ensures each entry is well-defined.
-
-Here are the next 50 incident response playbook scenarios (continuing from your \#11 to \#60):
-
------
-
 <details>
 <summary><strong>11. 🛡️ Ransomware Activity Detected</strong></summary>
 
@@ -258,8 +250,6 @@ DeviceNetworkEvents
 
 </details>
 
------
-
 <details>
 <summary><strong>21. 🦠 Malware Communication to C2 Server</strong></summary>
 
@@ -486,8 +476,6 @@ IdentityLogonEvents
 **MITRE ATT\&CK**: T1558.001 – Steal or Forge Kerberos Tickets: Golden Ticket, T1558.003 – Steal or Forge Kerberos Tickets: Silver Ticket
 
 </details>
-
------
 
 <details>
 <summary><strong>31. 📈 Unusual Data Volume in Network Shares</strong></summary>
@@ -720,8 +708,6 @@ DeviceFileEvents
 
 </details>
 
------
-
 <details>
 <summary><strong>41. 📤 Excessive Outbound Traffic to Unusual Ports</strong></summary>
 
@@ -953,8 +939,6 @@ DeviceNetworkEvents
 **MITRE ATT\&CK**: T1041 – Exfiltration Over C2 Channel, T1071.004 – Application Layer Protocol: DNS
 
 </details>
-
------
 
 <details>
 <summary><strong>51. 🔌 Rogue Wireless Access Point</strong></summary>
@@ -1194,12 +1178,6 @@ DeviceNetworkEvents
 
 </details>
 
-You're asking for a large volume of detailed incident response playbooks, formatted in Markdown, similar to the excellent examples you provided. I will continue to generate these in batches of 50 to maintain quality and cover a wide array of MITRE ATT\&CK techniques.
-
-Here are the next 50 incident response playbook scenarios, continuing from \#61 to \#110.
-
------
-
 <details>
 <summary><strong>61. 👻 User Account Creation (Suspicious)</strong></summary>
 
@@ -1416,8 +1394,6 @@ DeviceProcessEvents
 **MITRE ATT\&CK**: T1082 – System Information Discovery
 
 </details>
-
------
 
 <details>
 <summary><strong>71. 🖥️ Image Tampering (OS/Software)</strong></summary>
@@ -1642,8 +1618,6 @@ DeviceProcessEvents
 **MITRE ATT\&CK**: T1146 – Masquerading: Hidden Window
 
 </details>
-
------
 
 <details>
 <summary><strong>81. 😈 Rogue Security Software</strong></summary>
@@ -1877,8 +1851,6 @@ WebAppLogs
 
 </details>
 
------
-
 <details>
 <summary><strong>91. 💻 Command and Scripting Interpreter - PowerShell</strong></summary>
 
@@ -2105,12 +2077,6 @@ IdentityLogonEvents
 **MITRE ATT\&CK**: T1136.002 – Create Account: Domain Account
 
 </details>
-
-You've requested the next batch of 50 incident response playbook scenarios, following your established Markdown format. I will continue to provide detailed and unique scenarios, mapping them to relevant MITRE ATT\&CK techniques.
-
-Here are the next 50 incident response playbook scenarios, continuing from \#101 to \#150:
-
------
 
 <details>
 <summary><strong>101. 📁 Data Staging for Exfiltration</strong></summary>
@@ -2341,8 +2307,6 @@ DeviceNetworkEvents
 **MITRE ATT\&CK**: T1552.001 – Unsecured Credentials: Cloud Instance Metadata API
 
 </details>
-
------
 
 <details>
 <summary><strong>111. 🛡️ Defacement of Public Website</strong></summary>
@@ -2576,8 +2540,6 @@ DeviceFileEvents
 
 </details>
 
------
-
 <details>
 <summary><strong>121. 💥 Exploitation for Client Execution - Malicious Image</strong></summary>
 
@@ -2807,8 +2769,6 @@ DeviceProcessEvents
 
 </details>
 
------
-
 <details>
 <summary><strong>131. 📜 System Information Discovery - System Time</strong></summary>
 
@@ -3033,8 +2993,6 @@ DeviceFileEvents
 **MITRE ATT\&CK**: T1105 – Ingress Tool Transfer
 
 </details>
-
------
 
 <details>
 <summary><strong>141. 👻 Unsecured Credentials - Hardcoded Credentials</strong></summary>
