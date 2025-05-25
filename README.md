@@ -273,42 +273,6 @@ DeviceNetworkEvents
 
 Each collapsible section below shows immediate actions, who is involved, escalation triggers, and MITRE techniques.
 
-<details>
-<summary><strong>💥 Brute Force Attack</strong></summary>
-
-- **Who is Involved**: SOC Analyst, IR Lead, AD Admin
-- **Immediate Actions**:
-  - Search failed login attempts (source IP)
-  - Lock account or enforce MFA
-  - Block IP if attack persists
-- **KQL Query**:
-  ```kusto
-  DeviceLogonEvents
-  | where ActionType == "LogonFailed"
-  | summarize Failures = count() by AccountName, RemoteIP
-  | order by Failures desc
-  ```
-- **MITRE ATT&CK**: T1110 – Brute Force
-
-</details>
-
-<details>
-<summary><strong>🎣 Phishing Email</strong></summary>
-
-- **Who is Involved**: Email Admin, SOC, IR Lead
-- **Immediate Actions**:
-  - Isolate affected user inbox
-  - Extract URLs/attachments and sandbox them
-  - Block sender domain
-- **KQL Query**:
-  ```kusto
-  EmailEvents
-  | where Subject has_any ("Reset Password", "Account Locked")
-  ```
-- **MITRE ATT&CK**: T1566 – Phishing
-
-</details>
-
 **[More playbook Scenarios included here](https://github.com/Bharathkasyap/Incident_Response_For_Everyone/blob/main/src/Queries.md)**
 
 ---
