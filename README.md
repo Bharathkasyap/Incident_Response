@@ -12,7 +12,7 @@
 4. [Detailed Lifecycle Phases Explained](#detailed-lifecycle-phases-explained)
 5. [Roles & Permissions in Incident Response](#roles--permissions-in-incident-response)
 6. [Attack Scenarios & Actionable Playbooks](#attack-scenarios--actionable-playbooks)
-7. [🔍 100+ KQL Queries for Incident Detection & Response](#100-kql-queries-for-incident-detection--response)
+7. [100+ KQL Queries for Incident Detection & Response](#100-kql-queries-for-incident-detection--response)
 8. [Incident Response Report Writing](#incident-response-report-writing)
 9. [Authority Flow & Communication Chain](#authority-flow--communication-chain)
 10. [MITRE ATT&CK Framework Mapping](#mitre-attck-framework-mapping)
