@@ -309,7 +309,7 @@ Each collapsible section below shows immediate actions, who is involved, escalat
 
 </details>
 
-_(Add 20+ more playbooks similarly — will be added in future updates)_
+_**[More playbooks include](https://github.com/Bharathkasyap/Incident_Response_For_Everyone/blob/main/src/Queries.md)**
 
 ---
 
