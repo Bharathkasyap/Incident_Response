@@ -1049,6 +1049,8 @@ NetworkEvents
 <details>
 <summary><strong>52. 📞 Voice Phishing (Vishing) Report</strong></summary>
 
+**Sample Scenario**: An employee receives a call from someone pretending to be IT, requesting login credentials to "fix a system issue." The caller ID appears spoofed. The employee reports it immediately.
+
 **Who is Involved**: SOC Analyst, HR, IT Help Desk, Communications  
 **Immediate Actions**:
 
@@ -1075,6 +1077,8 @@ IdentityLogonEvents
 <details>
 <summary><strong>53. ⚙️ Browser Extensions with Malicious Behavior</strong></summary>
 
+**Sample Scenario**: A browser extension is flagged for capturing browsing history and sending it to an external domain. Logs indicate the extension had permissions to read all data on visited sites.
+
 **Who is Involved**: SOC Analyst, Desktop Support  
 **Immediate Actions**:
 
@@ -1096,6 +1100,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>54. 🔒 SSH Brute Force/Password Spraying</strong></summary>
+
+**Sample Scenario:** Attackers scan public IP ranges for SSH ports and repeatedly attempt logins using common usernames like 'admin', 'test', and 'root' with weak passwords. One system logs over 100 failed attempts from the same IP. The SOC blocks the IP and resets credentials.
 
 **Who is Involved**: SOC Analyst, Server Administrators  
 **Immediate Actions**:
@@ -1121,6 +1127,8 @@ Syslog
 <details>
 <summary><strong>55. ☁️ S3 Bucket/Cloud Storage Misconfiguration</strong></summary>
 
+**Sample Scenario:** A developer accidentally grants public-read access to an S3 bucket containing sensitive financial data. The SOC detects this via CloudTrail logs and revokes access within minutes, preventing external data scraping.
+
 **Who is Involved**: Cloud Security Team, SOC Tier 2, DevOps  
 **Immediate Actions**:
 
@@ -1144,6 +1152,8 @@ AWSCloudTrail
 
 <details>
 <summary><strong>56. 🔑 Password Spraying Across Multiple Accounts</strong></summary>
+
+**Sample Scenario:** A malicious actor tries logging into 100 user accounts using the password 'Spring2024!'. The IAM team observes failed attempts from one IP and confirms this as a password spraying attempt. The IP is blocked and affected accounts are locked.
 
 **Who is Involved**: SOC Analyst, IAM Team  
 **Immediate Actions**:
@@ -1171,6 +1181,8 @@ IdentityLogonEvents
 <details>
 <summary><strong>57. 🕵️ Process Argument Spoofing</strong></summary>
 
+**Sample Scenario:** A process named svchost.exe is launched with a suspicious argument pointing to a remote PowerShell payload. Analysts trace the activity and discover it's malware trying to masquerade as a Windows service.
+
 **Who is Involved**: SOC Tier 2, Forensics  
 **Immediate Actions**:
 
@@ -1192,6 +1204,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>58. 📂 Archive Compression for Exfiltration</strong></summary>
+
+**Sample Scenario:** A user unknowingly infected with malware triggers a rule when large .zip and .7z files are created in an unusual directory. SOC finds these were created by a script run by the malware and blocks the exfiltration channel.
 
 **Who is Involved**: SOC Tier 2, Data Governance  
 **Immediate Actions**:
@@ -1216,6 +1230,8 @@ DeviceFileEvents
 <details>
 <summary><strong>59. 🔄 Bypass User Account Control (UAC)</strong></summary>
 
+**Sample Scenario:** A user’s machine executes fodhelper.exe with a payload that silently launches cmd.exe as administrator. Analysts identify the UAC bypass method and isolate the system.
+
 **Who is Involved**: SOC Tier 2, Endpoint Security  
 **Immediate Actions**:
 
@@ -1238,6 +1254,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>60. 🌐 Ingress Tool Transfer (Direct Download)</strong></summary>
+
+**Sample Scenario:** A suspicious PowerShell session downloads Mimikatz from raw.githubusercontent.com. The SOC blocks the session and quarantines the endpoint.
 
 **Who is Involved**: SOC Analyst, Network Security  
 **Immediate Actions**:
@@ -1262,6 +1280,8 @@ DeviceNetworkEvents
 <details>
 <summary><strong>61. 👻 User Account Creation (Suspicious)</strong></summary>
 
+**Sample Scenario:** A new account 'sys_backup_admin' is created outside of normal onboarding processes. Investigation reveals the account was created by a compromised domain admin.
+
 **Who is Involved**: SOC Analyst, IAM Team  
 **Immediate Actions**:
 
@@ -1284,6 +1304,8 @@ IdentityLogonEvents
 <details>
 <summary><strong>62. 🛠️ Account Manipulation (Privilege Escalation)</strong></summary>
 
+**Sample Scenario:** A user account ‘john.doe’ is granted Domain Admin privileges without proper change ticket. The IAM team reverses the change and flags it as unauthorized.
+
 **Who is Involved**: IAM Team, SOC Tier 3  
 **Immediate Actions**:
 
@@ -1305,6 +1327,8 @@ IdentityLogonEvents
 
 <details>
 <summary><strong>63. 📡 Network Service Scanning</strong></summary>
+
+**Sample Scenario:** A host initiates over 500 connections to various ports across multiple servers within 10 minutes. SOC confirms it as a port scan and blocks the IP.
 
 **Who is Involved**: Network Security, SOC Analyst  
 **Immediate Actions**:
@@ -1329,6 +1353,8 @@ DeviceNetworkEvents
 <details>
 <summary><strong>64. 🔍 Process Discovery (Unusual Enumeration)</strong></summary>
 
+**Sample Scenario:** A compromised endpoint runs tasklist in a script to enumerate active processes and send details to a remote server. This triggers a detection alert.
+
 **Who is Involved**: SOC Tier 2, Threat Hunter  
 **Immediate Actions**:
 
@@ -1351,6 +1377,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>65. 🌐 System Network Configuration Discovery</strong></summary>
 
+**Sample Scenario:** A PowerShell script runs ipconfig /all and netstat on an endpoint, initiated by a user with no admin rights. SOC investigates and confirms the system was infected by malware performing internal recon.
+
 **Who is Involved**: SOC Analyst, Network Security  
 **Immediate Actions**:
 
@@ -1371,6 +1399,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>66. 💻 Remote System Discovery</strong></summary>
+
+**Sample Scenario:** nbtscan is executed by a script to map all devices in a subnet. SOC confirms it was executed by a compromised account and isolates the host.
 
 **Who is Involved**: SOC Tier 2, Network Security  
 **Immediate Actions**:
@@ -1395,6 +1425,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>67. 👥 Account Discovery (Local/Domain)</strong></summary>
 
+**Sample Scenario:** The attacker runs net user and net group to enumerate all available users and groups within the domain. Logs show the source host was not authorized for such actions.
+
 **Who is Involved**: SOC Analyst, IAM Team  
 **Immediate Actions**:
 
@@ -1415,6 +1447,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>68. 🤝 Permission Groups Discovery</strong></summary>
+
+**Sample Scenario:** An unknown PowerShell session queries Active Directory groups and their members. The SOC investigates and finds a compromised internal user.
 
 **Who is Involved**: SOC Analyst, IAM Team  
 **Immediate Actions**:
@@ -1437,6 +1471,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>69. 📦 Software Discovery</strong></summary>
 
+**Sample Scenario:** A script using wmic product get is run across endpoints to identify installed software. The activity originated from a non-IT system, indicating compromise.
+
 **Who is Involved**: SOC Analyst, System Administrators  
 **Immediate Actions**:
 
@@ -1458,6 +1494,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>70. ℹ️ System Information Discovery</strong></summary>
 
+**Sample Scenario:** Malware executes systeminfo and hostname on infected devices and sends results to a C2 server. Alert is triggered by unusual command usage.
+
 **Who is Involved**: SOC Analyst, System Administrators  
 **Immediate Actions**:
 
@@ -1478,6 +1516,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>71. 🖥️ Image Tampering (OS/Software)</strong></summary>
+
+**Sample Scenario:** An alert shows a system DLL file in System32 directory was modified by an unknown process. Integrity check fails, and the system is isolated.
 
 **Who is Involved**: SOC Tier 3, Forensics, System Administrators  
 **Immediate Actions**:
@@ -1501,6 +1541,8 @@ DeviceFileEvents
 
 <details>
 <summary><strong>72. 💾 Rootkit Installation</strong></summary>
+
+**Sample Scenario:** An analyst detects a kernel-level driver loaded from an unsigned source. On analysis, the tool attempts to hide processes and network connections, confirming rootkit behavior.
 
 **Who is Involved**: Forensics, SOC Tier 3, IR Lead  
 **Immediate Actions**:
@@ -1526,6 +1568,8 @@ DeviceEvents
 <details>
 <summary><strong>73. 🔄 Bootkit Installation</strong></summary>
 
+**Sample Scenario:** The system bootloader file bootmgr is altered outside of Windows Update processes. Forensics team investigates and confirms bootkit presence.
+
 **Who is Involved**: Forensics, SOC Tier 3, IR Lead  
 **Immediate Actions**:
 
@@ -1547,6 +1591,8 @@ DeviceFileEvents
 
 <details>
 <summary><strong>74. ⚙️ Firmware Modification</strong></summary>
+
+**Sample Scenario:** Firmware tampering alert is raised for a server's baseboard management controller (BMC). System logs indicate changes made outside approved maintenance windows.
 
 **Who is Involved**: SOC Tier 3, System Administrators, Hardware Vendors  
 **Immediate Actions**:
@@ -1572,6 +1618,8 @@ Alerts
 <details>
 <summary><strong>75. 🤝 Compromise of Trusted Relationship</strong></summary>
 
+**Sample Scenario:** An attacker gains access to a federated identity provider and uses it to access internal applications. The attack is caught via unusual federated login activity.
+
 **Who is Involved**: IR Lead, IAM Team, Network Security, SOC Tier 3  
 **Immediate Actions**:
 
@@ -1593,6 +1641,8 @@ IdentityLogonEvents
 
 <details>
 <summary><strong>76. 🛠️ Use of Trusted Development Tools</strong></summary>
+
+**Sample Scenario:** A legitimate tool like msbuild.exe is used to compile a malicious script. The action is not triggered from Visual Studio, raising an alert. The SOC confirms misuse of trusted tools for lateral movement.
 
 **Who is Involved**: SOC Tier 2, DevOps, Development Teams  
 **Immediate Actions**:
@@ -1616,6 +1666,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>77. 🎭 Masquerading - Right-to-Left Override (RTLO)</strong></summary>
 
+**Sample Scenario:** A user receives a file named invoicegpj.exe which appears as a JPEG image due to RTLO character. The file executes malware when opened. Email gateway failed to catch the spoof.
+
 **Who is Involved**: SOC Analyst, Email Security Team  
 **Immediate Actions**:
 
@@ -1637,6 +1689,8 @@ EmailEvents
 <details>
 <summary><strong>78. 🎭 Masquerading - Space After Filename</strong></summary>
 
+**Sample Scenario:** A file report.pdf .exe is detected in downloads. Because of the space, it looks like a PDF to users. The SOC confirms it’s a trojan and blocks further distribution.
+
 **Who is Involved**: SOC Analyst, Endpoint Security  
 **Immediate Actions**:
 
@@ -1657,6 +1711,8 @@ DeviceFileEvents
 
 <details>
 <summary><strong>79. 🎭 Masquerading - Valid Digitally Signed Binary</strong></summary>
+
+**Sample Scenario:** rundll32.exe is launched with suspicious arguments but has a valid Microsoft signature. Analysts discover a malicious DLL sideloaded into the signed binary.
 
 **Who is Involved**: SOC Tier 2, Threat Hunter  
 **Immediate Actions**:
@@ -1681,6 +1737,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>80. 🎭 Masquerading - Hidden Window</strong></summary>
 
+**Sample Scenario:** A PowerShell script launches processes with the -WindowStyle Hidden flag. Users are unaware something is running in the background. The SOC traces it to malware performing beaconing.
+
 **Who is Involved**: SOC Tier 2, Endpoint Security  
 **Immediate Actions**:
 
@@ -1703,6 +1761,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>81. 😈 Rogue Security Software</strong></summary>
 
+**Sample Scenario:** A user reports a new antivirus tool claiming many threats. The SOC finds it's 'rogueware' named macoptimizer.exe, designed to lure users into paying for fake threats.
+
 **Who is Involved**: SOC Analyst, Desktop Support  
 **Immediate Actions**:
 
@@ -1724,6 +1784,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>82. 💧 Drive-by Download (Watering Hole)</strong></summary>
+
+**Sample Scenario:** Multiple employees visit a partner website that was compromised to host malware. Visiting the page results in a silent download and execution of a trojan.
 
 **Who is Involved**: SOC, Web Security Team  
 **Immediate Actions**:
@@ -1748,6 +1810,8 @@ DeviceNetworkEvents
 <details>
 <summary><strong>83. 📧 Spearphishing Attachment</strong></summary>
 
+**Sample Scenario:** A targeted email is sent to the finance team with a .doc attachment containing embedded macros. Once opened, the macro installs an infostealer.
+
 **Who is Involved**: Email Security Team, SOC Analyst  
 **Immediate Actions**:
 
@@ -1769,6 +1833,8 @@ EmailEvents
 
 <details>
 <summary><strong>84. 🔗 Spearphishing Link</strong></summary>
+
+**Sample Scenario:** A CEO receives a phishing email with a URL spoofing a known vendor portal. The link leads to a fake login page designed to harvest credentials.
 
 **Who is Involved**: Email Security Team, SOC Analyst  
 **Immediate Actions**:
@@ -1794,6 +1860,8 @@ EmailEvents
 <strong>85. ⛓️ Supply Chain Compromise: Compromise Software Dependencies</strong>
 </summary>
 
+**Sample Scenario:** A popular open-source npm package used internally is updated with malicious code. Developers unknowingly deploy this in production.
+
 **Who is Involved**: IR Lead, Software Development, Vendor Management  
 **Immediate Actions**:
 
@@ -1818,6 +1886,8 @@ DevOpsPipelineEvents
 <details>
 <summary><strong>86. 👃 Compromise via Network Sniffing</strong></summary>
 
+**Sample Scenario:** SOC detects tcpdump running on a non-admin system. Investigation reveals the attacker was capturing unencrypted credentials from the internal network.
+
 **Who is Involved**: Network Security, SOC Tier 3, Forensics  
 **Immediate Actions**:
 
@@ -1840,6 +1910,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>87. 👤 Man-in-the-Browser</strong></summary>
+
+**Sample Scenario:** A user complains about strange banking behavior. Investigation finds malware injected a script into the browser to alter displayed balances and steal login sessions.
 
 **Who is Involved**: SOC Tier 2, Endpoint Security, Forensic  
 **Immediate Actions**:
@@ -1864,6 +1936,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>88. 🔑 Pass-the-Hash (PtH) Attack</strong></summary>
 
+**Sample Scenario:** Logs show lateral movement using NTLM logons and reused token SIDs. Analysts confirm hash was extracted using Mimikatz and reused across machines.
+
 **Who is Involved**: SOC Tier 3, IAM Team, Forensics  
 **Immediate Actions**:
 
@@ -1886,6 +1960,8 @@ IdentityLogonEvents
 
 <details>
 <summary><strong>89. 🎫 Pass-the-Ticket (PtT) Attack</strong></summary>
+
+**Sample Scenario:** An attacker uses Kerberos tickets stolen from a memory dump to impersonate users across services without needing passwords.
 
 **Who is Involved**: SOC Tier 3, IAM Team, Forensics  
 **Immediate Actions**:
@@ -1911,6 +1987,8 @@ IdentityLogonEvents
 <details>
 <summary><strong>90. 🖥️ Remote Code Execution (RCE) - Public-Facing Application</strong></summary>
 
+**Sample Scenario:** An unpatched web server receives a crafted POST request that executes system commands. Analysts find the system was running an outdated CMS vulnerable to RCE.
+
 **Who is Involved**: Web Security, SOC Tier 2, Application Owners  
 **Immediate Actions**:
 
@@ -1935,6 +2013,8 @@ WebAppLogs
 <details>
 <summary><strong>91. 💻 Command and Scripting Interpreter - PowerShell</strong></summary>
 
+**Sample Scenario:** A user system is flagged for launching PowerShell with obfuscated and encoded commands. Investigation reveals the script downloads and executes a second-stage payload.
+
 **Who is Involved**: SOC Tier 2, Threat Hunter  
 **Immediate Actions**:
 
@@ -1957,6 +2037,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>92. 🍎 Command and Scripting Interpreter - AppleScript</strong></summary>
+
+**Sample Scenario:** An Apple device runs osascript to control the system using a script pulled from a phishing email. The script sends sensitive files to a remote host.
 
 **Who is Involved**: SOC Analyst, macOS Administrators  
 **Immediate Actions**:
@@ -1983,6 +2065,8 @@ MacProcessEvents
 <details>
 <summary><strong>93. 🔌 Execution Through API (e.g., COM/DCOM)</strong></summary>
 
+**Sample Scenario:** An attacker uses dllhost.exe to invoke COM objects and spawn commands via powershell.exe. The technique bypasses some EDR controls.
+
 **Who is Involved**: SOC Tier 2, Forensics  
 **Immediate Actions**:
 
@@ -2005,6 +2089,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>94. 💉 Process Injection - DLL Injection</strong></summary>
+
+**Sample Scenario:** Malware injects a DLL into explorer.exe to blend into user activity. Memory analysis confirms presence of a credential harvester.
 
 **Who is Involved**: Forensics, SOC Tier 3  
 **Immediate Actions**:
@@ -2029,6 +2115,8 @@ DeviceImageLoadEvents
 <details>
 <summary><strong>95. 👻 Process Injection - Process Hollowing</strong></summary>
 
+**Sample Scenario:** An attacker launches a legitimate notepad.exe, unmaps its memory, and injects malicious code. Analysts detect the mismatch in the loaded image.
+
 **Who is Involved**: Forensics, SOC Tier 3  
 **Immediate Actions**:
 
@@ -2050,6 +2138,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>96. 🧵 Process Injection - Thread Hijacking</strong></summary>
+
+**Sample Scenario:** Analysts detect QueueUserAPC API calls used to insert malicious code into another thread. Memory dump confirms the payload was Cobalt Strike beacon.
 
 **Who is Involved**: Forensics, SOC Tier 3  
 **Immediate Actions**:
@@ -2073,6 +2163,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>97. 🔑 Access Token Manipulation - Token Impersonation/Theft</strong></summary>
 
+**Sample Scenario:** Logs show CreateProcessWithTokenW used to start new admin-level processes. Investigation reveals compromised tokens used to elevate access.
+
 **Who is Involved**: Forensics, SOC Tier 3  
 **Immediate Actions**:
 
@@ -2095,6 +2187,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>98. 🔑 Access Token Manipulation - Create Process with Token</strong></summary>
 
+**Sample Scenario:** The attacker uses a harvested token to spawn cmd.exe as an administrator. The source system was compromised via spearphishing.
+
 **Who is Involved**: Forensics, SOC Tier 3  
 **Immediate Actions**:
 
@@ -2116,6 +2210,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>99. 👤 Create Account - Local Account (Suspicious)</strong></summary>
+
+**Sample Scenario:** A new local user 'svc_backup1' is created on a production server at midnight. The account is used to establish persistence.
 
 **Who is Involved**: SOC Analyst, IAM Team  
 **Immediate Actions**:
@@ -2140,6 +2236,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>100. 👥 Create Account - Domain Account (Suspicious)</strong></summary>
 
+**Sample Scenario:** An unexpected domain account 'tempadmin.test' is created from a compromised helpdesk workstation. SOC revokes the account and blocks the workstation.
+
 **Who is Involved**: SOC Tier 2, IAM Team, Active Directory Administrators  
 **Immediate Actions**:
 
@@ -2161,6 +2259,8 @@ IdentityLogonEvents
 
 <details>
 <summary><strong>101. 📁 Data Staging for Exfiltration</strong></summary>
+
+**Sample Scenario:** A large volume of .sql and .csv files is copied to C:\Users\Public\. The staging location matches known exfiltration patterns.
 
 **Who is Involved**: SOC Tier 2, Data Governance, Forensics  
 **Immediate Actions**:
@@ -2186,6 +2286,8 @@ DeviceFileEvents
 <details>
 <summary><strong>102. 📦 Data Compressed for Exfiltration</strong></summary>
 
+**Sample Scenario:** A script compresses large files from HR and Finance directories into data_backup.7z. Analysts confirm the action wasn’t part of any scheduled backup.
+
 **Who is Involved**: SOC Tier 2, Data Governance, Forensics  
 **Immediate Actions**:
 
@@ -2209,6 +2311,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>103. 💾 Data Encrypted for Exfiltration</strong></summary>
 
+**Sample Scenario:** OpenSSL is used on a user's machine to encrypt hundreds of .docx and .pdf files before they are transferred via FTP.
+
 **Who is Involved**: SOC Tier 2, Data Governance, Forensics  
 **Immediate Actions**:
 
@@ -2230,6 +2334,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>104. 🌐 Data Exfiltration Over Web Service</strong></summary>
+  
+**Sample Scenario:** A script sends sensitive files to transfer.sh from a non-browser process. The SOC confirms the device was compromised by infostealer malware.
 
 **Who is Involved**: SOC Tier 2, Network Security, Web Security  
 **Immediate Actions**:
@@ -2254,6 +2360,8 @@ DeviceNetworkEvents
 <details>
 <summary><strong>105. 📧 Data Exfiltration Over Email</strong></summary>
 
+**Sample Scenario:** A user sends an external email with attachments named employee_info.csv and client_list.sql. Email DLP triggers and blocks the message.
+
 **Who is Involved**: Email Security Team, SOC Tier 2, Data Governance  
 **Immediate Actions**:
 
@@ -2275,6 +2383,8 @@ EmailEvents
 
 <details>
 <summary><strong>106. 🗑️ Disk Wipe</strong></summary>
+
+**Sample Scenario:** diskpart.exe and format commands are executed remotely on a shared server. Analysts identify the commands were issued by a previously compromised admin account.
 
 **Who is Involved**: IR Lead, Forensics, SOC Tier 3  
 **Immediate Actions**:
@@ -2299,6 +2409,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>107. 🌐 Web Compromise via SQL Injection</strong></summary>
 
+**Sample Scenario:** Attackers inject SQL commands via URL parameters in a login page. Logs show a successful dump of customer data using union select payloads.
+
 **Who is Involved**: Web Security, SOC Tier 2, Application Owners  
 **Immediate Actions**:
 
@@ -2321,6 +2433,8 @@ WebAppLogs
 
 <details>
 <summary><strong>108. 📜 Web Compromise via Cross-Site Scripting (XSS)</strong></summary>
+
+**Sample Scenario:** Users report unexpected popups on a forum site. Analysts find a stored XSS injected via comment fields, stealing session tokens.
 
 **Who is Involved**: Web Security, SOC Tier 2, Application Owners  
 **Immediate Actions**:
@@ -2345,6 +2459,8 @@ WebAppLogs
 <details>
 <summary><strong>109. ⚠️ Unsecured Cloud API Exposure</strong></summary>
 
+**Sample Scenario:** Public access to a cloud API is granted via wildcard * permissions in an access policy. Logs show enumeration attempts by external IPs.
+
 **Who is Involved**: Cloud Security Team, DevOps, SOC Tier 2  
 **Immediate Actions**:
 
@@ -2367,6 +2483,8 @@ CloudApiLogs
 
 <details>
 <summary><strong>110. 🔑 Cloud Instance Metadata Access</strong></summary>
+
+**Sample Scenario:** A containerized app with access to instance metadata makes suspicious requests to retrieve IAM tokens. The app was misconfigured, exposing credentials.
 
 **Who is Involved**: Cloud Security Team, DevOps, SOC Tier 2  
 **Immediate Actions**:
@@ -2392,6 +2510,8 @@ DeviceNetworkEvents
 <details>
 <summary><strong>111. 🛡️ Defacement of Public Website</strong></summary>
 
+**Sample Scenario:** A defaced homepage appears with a political message. SOC traces the source to a webshell planted weeks earlier in an image upload feature.
+
 **Who is Involved**: Web Security, Communications, SOC Tier 1  
 **Immediate Actions**:
 
@@ -2415,6 +2535,8 @@ FileIntegrityEvents
 
 <details>
 <summary><strong>112. 💥 Distributed Denial of Service (DDoS) Attack</strong></summary>
+
+**Sample Scenario:** Public-facing services become unreachable due to massive SYN flood from botnet traffic. The SOC activates upstream DDoS protection.
 
 **Who is Involved**: Network Security, Infrastructure Team, SOC Tier 2  
 **Immediate Actions**:
@@ -2440,6 +2562,8 @@ NetworkFlows
 <details>
 <summary><strong>113. 🔑 Pass-the-Hash (PtH) (Lateral Movement)</strong></summary>
 
+**Sample Scenario:** Analysts observe NTLM authentication from one server to another using the same hash for multiple services. Log correlation confirms PtH across the subnet.
+
 **Who is Involved**: SOC Tier 2, IAM Team, Forensics  
 **Immediate Actions**:
 
@@ -2463,6 +2587,8 @@ IdentityLogonEvents
 
 <details>
 <summary><strong>114. 🎫 Pass-the-Ticket (PtT) (Lateral Movement)</strong></summary>
+
+**Sample Scenario:** A golden ticket is forged and used to access file servers across domains. Ticket lifetime is unusually long, triggering the alert.
 
 **Who is Involved**: SOC Tier 2, IAM Team, Forensics  
 **Immediate Actions**:
@@ -2488,6 +2614,8 @@ IdentityLogonEvents
 <details>
 <summary><strong>115. 🎣 Rogue DHCP Server</strong></summary>
 
+**Sample Scenario:** A network segment reports IP conflicts. Switch logs show a new unauthorized DHCP server giving incorrect gateway settings.
+
 **Who is Involved**: Network Security, System Administrators  
 **Immediate Actions**:
 
@@ -2510,6 +2638,8 @@ NetworkEvents
 
 <details>
 <summary><strong>116. ⚠️ ARP Poisoning / ARP Cache Spoofing</strong></summary>
+
+**Sample Scenario:** Internal systems report intermittent connectivity. Packet captures reveal mismatched MAC addresses for known gateways, indicating ARP spoofing.
 
 **Who is Involved**: Network Security, SOC Tier 2  
 **Immediate Actions**:
@@ -2535,6 +2665,8 @@ NetworkEvents
 <details>
 <summary><strong>117. 🌐 Port Forwarding / Tunneling</strong></summary>
 
+**Sample Scenario:** ngrok.exe is executed on a desktop, exposing internal applications to the internet via public tunnels. The SOC blocks the process and investigates intent.
+
 **Who is Involved**: Network Security, SOC Tier 2  
 **Immediate Actions**:
 
@@ -2556,6 +2688,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>118. 🔑 Credentials from Web Browsers</strong></summary>
+
+**Sample Scenario:** Malware runs on a user's system and reads Chrome's Login Data SQLite file directly. Forensics confirms browser credentials were accessed by a rogue executable.
 
 **Who is Involved**: Forensics, SOC Tier 2  
 **Immediate Actions**:
@@ -2579,6 +2713,8 @@ DeviceFileEvents
 <details>
 <summary><strong>119. 📄 Credentials from Password Managers</strong></summary>
 
+**Sample Scenario:** keepass.exe data file is accessed by malicious.ps1. Investigation reveals attacker dumped the KeePass database for offline cracking.
+
 **Who is Involved**: Forensics, SOC Tier 2  
 **Immediate Actions**:
 
@@ -2600,6 +2736,8 @@ DeviceFileEvents
 
 <details>
 <summary><strong>120. ☁️ Credentials from Cloud Sync Directories</strong></summary>
+
+**Sample Scenario:** Sensitive tokens and config files in a synced OneDrive folder are read by malware. Logs show these were then sent to a known C2 server.
 
 **Who is Involved**: Forensics, Cloud Security Team, SOC Tier 2  
 **Immediate Actions**:
@@ -2624,6 +2762,8 @@ DeviceFileEvents
 <details>
 <summary><strong>121. 💥 Exploitation for Client Execution - Malicious Image</strong></summary>
 
+**Sample Scenario:** An HR staff opens a .jpg attachment from email. The image contains malicious EXIF data that exploits a vulnerable image viewer plugin.
+
 **Who is Involved**: SOC Tier 2, Email Security Team, Desktop Support  
 **Immediate Actions**:
 
@@ -2646,6 +2786,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>122. 📄 Exploitation for Client Execution - Malicious PDF</strong></summary>
+
+**Sample Scenario:** A user opens a PDF from an unknown vendor. Embedded JavaScript silently installs malware using a known Adobe Reader exploit.
 
 **Who is Involved**: SOC Tier 2, Email Security Team, Desktop Support  
 **Immediate Actions**:
@@ -2670,6 +2812,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>123. 🕸️ Web Traffic Redirect to Malicious Site</strong></summary>
 
+**Sample Scenario:** Employees visiting a news site are redirected to malicious-redirect.com. The site was compromised to include a malicious ad script.
+
 **Who is Involved**: Network Security, Web Security, SOC Analyst  
 **Immediate Actions**:
 
@@ -2693,6 +2837,8 @@ DeviceNetworkEvents
 <details>
 <summary><strong>124. 📤 Exfiltration to Removable Media</strong></summary>
 
+**Sample Scenario:** A user connects a USB drive and transfers over 2GB of .csv and .sql files within minutes. SOC investigates user intent and device usage.
+
 **Who is Involved**: SOC Tier 2, Desktop Support, Data Governance  
 **Immediate Actions**:
 
@@ -2715,6 +2861,8 @@ DeviceFileEvents
 
 <details>
 <summary><strong>125. ⚙️ Indicator Removal - Timestomp</strong></summary>
+
+**Sample Scenario:** File modification timestamps are set to 2009, while system was built in 2022. The tool timestomp.exe is found in the user's temp folder.
 
 **Who is Involved**: Forensics, SOC Tier 3  
 **Immediate Actions**:
@@ -2740,6 +2888,8 @@ FileIntegrityEvents
 <details>
 <summary><strong>126. 🔗 Shortcut Modification (Persistence)</strong></summary>
 
+**Sample Scenario:** A .lnk file on the desktop is modified to launch a hidden script before opening the legitimate application. The script connects to an external IP.
+
 **Who is Involved**: SOC Tier 2, Endpoint Security  
 **Immediate Actions**:
 
@@ -2762,6 +2912,8 @@ DeviceFileEvents
 
 <details>
 <summary><strong>127. 🛡️ Network Gateway Compromise</strong></summary>
+
+**Sample Scenario:** Firewall settings are changed to allow open inbound ports. SOC confirms config changes originated from a non-approved source IP.
 
 **Who is Involved**: Network Security, IR Lead, SOC Tier 3  
 **Immediate Actions**:
@@ -2787,6 +2939,8 @@ NetworkDeviceLogs
 <details>
 <summary><strong>128. 💾 Windows Management Instrumentation (WMI) Service Modification</strong></summary>
 
+**Sample Scenario:** wmic commands are used to alter the behavior of a Windows service. Analysts discover it was to enable lateral movement via scheduled task.
+
 **Who is Involved**: SOC Tier 2, System Administrators  
 **Immediate Actions**:
 
@@ -2808,6 +2962,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>129. 📦 Software Deployment Tools Abuse</strong></summary>
+
+**Sample Scenario:** A rogue deployment package is pushed using SCCM, containing a remote shell payload. The account used had domain-wide permissions.
 
 **Who is Involved**: SOC Tier 2, System Administrators, IT Operations  
 **Immediate Actions**:
@@ -2832,6 +2988,8 @@ DeploymentLogs
 <details>
 <summary><strong>130. 🛡️ System Information Discovery - OS Version</strong></summary>
 
+**Sample Scenario:** systeminfo and ver commands are executed on multiple hosts from a central admin system. SOC suspects enumeration by attacker post-compromise.
+
 **Who is Involved**: SOC Analyst, System Administrators  
 **Immediate Actions**:
 
@@ -2853,6 +3011,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>131. 📜 System Information Discovery - System Time</strong></summary>
 
+**Sample Scenario:** Malware runs time and date to adjust execution timing to match user activity periods. Logs show the commands run via obfuscated script.
+
 **Who is Involved**: SOC Analyst  
 **Immediate Actions**:
 
@@ -2873,6 +3033,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>132. 🔑 Credential Dumping - Cached Credentials</strong></summary>
+
+**Sample Scenario:** Mimikatz is found running on a system with command line sekurlsa::logonpasswords. Analysts confirm cached creds for domain users were exposed.
 
 **Who is Involved**: Forensics, SOC Tier 2  
 **Immediate Actions**:
@@ -2896,6 +3058,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>133. 💻 Credential Dumping - LSA Secrets</strong></summary>
 
+**Sample Scenario:** Forensics find a dump of LSA secrets on disk. The attacker used lsadump::lsa /inject method to extract service and user secrets.
+
 **Who is Involved**: Forensics, SOC Tier 2  
 **Immediate Actions**:
 
@@ -2917,6 +3081,8 @@ DeviceProcessEvents
 
 <details>
 <summary><strong>134. 🕸️ Network Sniffing - Wireless</strong></summary>
+
+**Sample Scenario:** A rogue device is found collecting Wi-Fi traffic near the office. Wireless logs indicate use of airodump-ng and signal spikes around sensitive areas.
 
 **Who is Involved**: Network Security, SOC Tier 2  
 **Immediate Actions**:
@@ -2941,6 +3107,8 @@ NetworkEvents
 <details>
 <summary><strong>135. 👻 Rogue DNS Server</strong></summary>
 
+**Sample Scenario:** A fake DNS server starts responding to queries with redirect IPs. Logs from endpoints show unusual resolution behavior pointing to malicious sites.
+
 **Who is Involved**: Network Security, SOC Tier 2, System Administrators  
 **Immediate Actions**:
 
@@ -2964,6 +3132,8 @@ NetworkEvents
 <details>
 <summary><strong>136. 💬 Command and Control - Standard Application Layer Protocol (HTTP/S)</strong></summary>
 
+**Sample Scenario:** A background process initiates repeated connections to a suspicious IP over port 443. The URL matches a known C2 infrastructure in threat intel.
+
 **Who is Involved**: SOC Tier 2, Network Security, Threat Intelligence  
 **Immediate Actions**:
 
@@ -2985,6 +3155,8 @@ DeviceNetworkEvents
 
 <details>
 <summary><strong>137. 📧 Command and Control - Standard Application Layer Protocol (SMTP)</strong></summary>
+
+**Sample Scenario:** An internal host starts sending outbound SMTP traffic to an external mail server not used by the org. Emails contain base64-encoded payloads.
 
 **Who is Involved**: SOC Tier 2, Email Security Team, Network Security  
 **Immediate Actions**:
@@ -3009,6 +3181,8 @@ DeviceNetworkEvents
 <details>
 <summary><strong>138. 📦 Command and Control - Standard Application Layer Protocol (FTP)</strong></summary>
 
+**Sample Scenario:** ftp.exe is seen uploading encrypted .zip files from a production system. The receiving IP is not whitelisted or part of business ops.
+
 **Who is Involved**: SOC Tier 2, Network Security  
 **Immediate Actions**:
 
@@ -3031,6 +3205,8 @@ DeviceNetworkEvents
 
 <details>
 <summary><strong>139. 📈 Ingress Tool Transfer - Via Remote Services</strong></summary>
+
+**Sample Scenario:** psexec.exe is used to copy and execute a malicious binary on another host. The activity bypasses typical file transfer detection.
 
 **Who is Involved**: SOC Analyst, Network Security  
 **Immediate Actions**:
@@ -3055,6 +3231,8 @@ DeviceFileEvents
 <details>
 <summary><strong>140. 🛡️ Ingress Tool Transfer - Via Removable Media</strong></summary>
 
+**Sample Scenario:** Malware executable found in a USB drive is copied into C:\Windows\Temp and executed. The file is later confirmed to be Cobalt Strike payload.
+
 **Who is Involved**: SOC Analyst, Desktop Support  
 **Immediate Actions**:
 
@@ -3077,6 +3255,8 @@ DeviceFileEvents
 
 <details>
 <summary><strong>141. 👻 Unsecured Credentials - Hardcoded Credentials</strong></summary>
+
+**Sample Scenario:** Code scanning alerts show a .ps1 script containing plaintext credentials for the backup server. Git commit history shows it was exposed for 3 weeks.
 
 **Who is Involved**: SOC Tier 2, Development Teams, IT Security  
 **Immediate Actions**:
@@ -3102,6 +3282,8 @@ CodeScanningAlerts
 <details>
 <summary><strong>142. 🔒 Unsecured Credentials - Credentials in Files</strong></summary>
 
+**Sample Scenario:** .csv file containing usernames,passwords is created on the desktop and copied to a shared drive. It was readable by all domain users.
+
 **Who is Involved**: SOC Tier 2, Data Governance, System Administrators  
 **Immediate Actions**:
 
@@ -3124,6 +3306,8 @@ DeviceFileEvents
 
 <details>
 <summary><strong>143. 🖥️ Persistence - Boot or Logon Autostart Execution: Windows Services</strong></summary>
+
+**Sample Scenario:** A new service named svcWinLog is created to launch a reverse shell. The service is configured to auto-start on boot.
 
 **Who is Involved**: SOC Tier 2, System Administrators  
 **Immediate Actions**:
@@ -3148,6 +3332,8 @@ DeviceProcessEvents
 <details>
 <summary><strong>144. 📜 Persistence - Boot or Logon Autostart Execution: Startup Folder</strong></summary>
 
+**Sample Scenario:** An .exe file is found in the startup folder named update-checker.exe. The file initiates a connection to a foreign IP at every login.
+
 **Who is Involved**: SOC Analyst, Endpoint Security  
 **Immediate Actions**:
 
@@ -3170,6 +3356,8 @@ DeviceFileEvents
 
 <details>
 <summary><strong>145. 🔗 Persistence - Boot or Logon Autostart Execution: Logon Script</strong></summary>
+
+**Sample Scenario:** A malicious .vbs file is pushed via GPO logon scripts. Every domain user runs the script upon login, which installs spyware.
 
 **Who is Involved**: SOC Tier 2, System Administrators, IAM Team  
 **Immediate Actions**:
@@ -3194,6 +3382,8 @@ DeviceFileEvents
 <details>
 <summary><strong>146. 💻 Persistence - Boot or Logon Autostart Execution: Image File Execution Options Injection</strong></summary>
 
+**Sample Scenario:** Registry entry sets debugger for calc.exe to malware.exe, causing every launch of calculator to run malicious code instead.
+
 **Who is Involved**: Forensics, SOC Tier 3  
 **Immediate Actions**:
 
@@ -3216,6 +3406,8 @@ DeviceRegistryEvents
 
 <details>
 <summary><strong>147. ⚙️ Persistence - Boot or Logon Autostart Execution: COM Hijacking</strong></summary>
+
+**Sample Scenario:** COM object Shell.Application is hijacked via registry. When a user opens File Explorer, the malware DLL is loaded silently.
 
 **Who is Involved**: Forensics, SOC Tier 3  
 **Immediate Actions**:
@@ -3241,6 +3433,8 @@ DeviceRegistryEvents
 <details>
 <summary><strong>148. 💬 Persistence - Boot or Logon Autostart Execution: Screensaver</strong></summary>
 
+**Sample Scenario:** SCRNSAVE.EXE registry value is set to a fake .scr file that launches malware when the screen is idle for 5 minutes.
+
 **Who is Involved**: SOC Analyst, System Administrators  
 **Immediate Actions**:
 
@@ -3265,6 +3459,8 @@ DeviceRegistryEvents
 <details>
 <summary><strong>149. 📤 Data Exfiltration - Alternative Protocol (ICMP)</strong></summary>
 
+**Sample Scenario:** ICMP packets are sent from a host in regular intervals, each with a fixed payload size. Analysts confirm encoded files were tunneled via ping.
+
 **Who is Involved**: Network Security, SOC Tier 2  
 **Immediate Actions**:
 
@@ -3288,6 +3484,8 @@ DeviceNetworkEvents
 
 <details>
 <summary><strong>150. 🌐 Data Exfiltration - Alternative Protocol (DNS)</strong></summary>
+
+**Sample Scenario:** SOC observes thousands of outbound DNS queries containing base64-encoded chunks. Upon analysis, it's confirmed that internal documents were being exfiltrated over DNS tunneling.
 
 **Who is Involved**: Network Security, SOC Tier 2  
 **Immediate Actions**:
